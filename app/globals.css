@@ -1,26 +1,101 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ── Kalavanti design tokens (Tailwind v4) ─────────────────────────────
+   Luxury house palette: rose-gold accents on a warm porcelain-blush canvas,
+   paired with a deep oxblood/wine for dark bands and CTAs. No stark white.  */
+@theme {
+  --color-brand: #9a4f56; /* deep rose — buttons, active states */
+  --color-brand-dark: #4a2328; /* oxblood/wine — dark bands, hero overlays */
+  --color-rosegold: #b76e79; /* signature rose-gold accent */
+  --color-cta-from: #b06a70; /* add-to-cart gradient start */
+  --color-cta-to: #8a464c; /* add-to-cart gradient end */
+  --color-gold: #a56a5b; /* rose-bronze — headings, nav hover */
+  --color-champagne: #e6c3ad; /* blush champagne */
+  --color-taupe: #6f4a48; /* announcement bar */
+  --color-ink: #2a2224; /* body text — warm espresso */
+  --color-muted: #6a5b5c; /* nav / secondary text */
+  --color-faint: #9c8b8d; /* struck prices */
+  --color-surface: #fff8f4; /* header — warm near-white */
+  --color-page: #f6ede8; /* page background — porcelain blush */
+  --color-card: #fdf6f1; /* cards / panels — warm ivory */
+  --color-softpink: #f3ddd6; /* chips, ribbons — dusty rose */
+  --color-cream: #f7ebe2;
+  --color-line: #eaddd4; /* hairlines */
+
+  --font-heading: "Playfair Display", Georgia, serif;
+  --font-body: Inter, "Roboto", system-ui, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  @apply h-full antialiased;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-page text-ink font-body;
+}
+
+/* Thin gold rule used under section headings */
+@utility rule-gold {
+  @apply relative;
+  &::after {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 2px;
+    margin: 12px auto 0;
+    background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  }
+}
+
+/* Section eyebrow: uppercase letterspaced gold label */
+@utility eyebrow {
+  @apply uppercase tracking-[0.22em] text-xs font-medium text-gold;
+}
+
+/* Primary CTA — red-maroon gradient like the reference's add-to-cart */
+@utility btn-cta {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg text-white font-semibold text-sm tracking-wide transition-all;
+  background: linear-gradient(90deg, var(--color-cta-from), var(--color-cta-to));
+  &:hover {
+    filter: brightness(1.07);
+    box-shadow: 0 6px 18px -8px rgb(138 70 76 / 0.55);
+  }
+}
+
+/* Maroon solid pill (filters, quick checkout) */
+@utility btn-maroon {
+  @apply inline-flex items-center justify-center rounded-lg bg-brand px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-dark;
+}
+
+/* Light outlined pill (wishlist, share, enquiry) */
+@utility btn-ghost {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg border border-line bg-card px-4 py-2 text-sm font-medium text-brand transition-colors hover:border-brand/40 hover:bg-softpink/50;
+}
+
+/* Serif section heading */
+@utility h2-serif {
+  @apply font-heading text-2xl sm:text-3xl text-gold font-semibold;
+}
+
+/* ── Dark velvet cloth backgrounds ─────────────────────────────────────
+   Used behind jewellery images (blended with mix-blend-multiply) so the
+   light photo backgrounds melt into a rich, premium velvet. */
+@utility velvet {
+  background-color: #3a1420;
+  background-image:
+    radial-gradient(120% 85% at 30% 12%, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0) 52%),
+    linear-gradient(158deg, #6e2740 0%, #4a1a2b 46%, #280d16 100%);
+}
+@utility velvet-her {
+  background-color: #3a0c1e;
+  background-image:
+    radial-gradient(120% 85% at 30% 14%, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 52%),
+    linear-gradient(158deg, #b23a5c 0%, #7a1f3f 48%, #3a0c1e 100%);
+}
+@utility velvet-him {
+  background-color: #0a1224;
+  background-image:
+    radial-gradient(120% 85% at 30% 14%, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0) 52%),
+    linear-gradient(158deg, #2a3f6b 0%, #16233f 48%, #0a1224 100%);
 }
