@@ -5,9 +5,11 @@ import Listing from "@/components/Listing";
 import { productsForCollection } from "@/lib/products";
 import { COLLECTION_LABELS } from "@/lib/categories";
 
-export const instant = false;
-
 type Params = { params: Promise<{ slug: string }> };
+
+export function generateStaticParams() {
+  return Object.keys(COLLECTION_LABELS).map((slug) => ({ slug }));
+}
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;

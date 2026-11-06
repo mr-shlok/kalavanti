@@ -3,9 +3,11 @@ import { notFound } from "next/navigation";
 import ProductDetail from "@/components/ProductDetail";
 import { getProduct, PRODUCTS } from "@/lib/products";
 
-export const instant = false;
-
 type Params = { params: Promise<{ slug: string }> };
+
+export function generateStaticParams() {
+  return PRODUCTS.map((p) => ({ slug: p.slug }));
+}
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;

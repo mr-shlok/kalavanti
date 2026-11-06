@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-export const instant = false;
-
 type Policy = { title: string; updated: string; body: { h: string; ps: string[] }[] };
 
 const POLICIES: Record<string, Policy> = {
@@ -53,6 +51,10 @@ const POLICIES: Record<string, Policy> = {
     ],
   },
 };
+
+export function generateStaticParams() {
+  return Object.keys(POLICIES).map((slug) => ({ slug }));
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;

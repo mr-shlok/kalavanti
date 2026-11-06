@@ -6,9 +6,11 @@ import Listing, { type FilterGroup } from "@/components/Listing";
 import { PRODUCTS, productsFor } from "@/lib/products";
 import { CATEGORY_LABELS } from "@/lib/categories";
 
-export const instant = false;
-
 type Params = { params: Promise<{ slug: string }> };
+
+export function generateStaticParams() {
+  return Object.keys(CATEGORY_LABELS).map((slug) => ({ slug }));
+}
 
 function filterGroupsFor(products: import("@/lib/types").Product[]): FilterGroup[] {
   const groups: FilterGroup[] = [];
